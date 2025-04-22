@@ -1,9 +1,9 @@
-package com.example.jpa.entity.team;
+package com.example.relation.entity.cascade;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.persistence.Column;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,20 +16,21 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@ToString
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@ToString(exclude = "childs")
 @Builder
-
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
 @Entity
-public class Team {
+public class Parent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "team_id")
     private Long id;
+    private String name;
 
-    private String teamName;
+    @Builder.Default
+    @OneToMany(mappedBy = "parent", cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, orphanRemoval = true)
+    private List<Child> childs = new ArrayList<>();
 
 }

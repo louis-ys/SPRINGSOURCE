@@ -1,4 +1,4 @@
-package com.example.jpa.entity.team;
+package com.example.relation.entity.team;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@ToString
+@ToString(exclude = "members")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -32,4 +32,7 @@ public class Team {
 
     private String teamName;
 
+    @Builder.Default
+    @OneToMany(mappedBy = "team")
+    private List<TeamMember> members = new ArrayList<>();
 }
