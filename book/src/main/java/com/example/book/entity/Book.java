@@ -22,7 +22,7 @@ import lombok.ToString;
 
 @Table(name = "BOOKTBL")
 @Entity
-public class BookEntity extends BaseEntity {
+public class Book extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
