@@ -1,8 +1,4 @@
 package com.example.jpa.entity;
-//번호(mno),내용(memo_text-200), 생성날짜(created_date), 수정날짜(updated_date)
-
-//mno 자동증가 pk 
-// 나머지 다 NN
 
 import java.time.LocalDateTime;
 
@@ -23,27 +19,36 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+// db 기준
+
+// 번호(mno),내용(memo_text-200),생성날짜(created_date),수정날짜(updated_date)
+// mno 자동증가, pk
+// 나머지 컬럼 NN(Not Null)
+
 @EntityListeners(value = AuditingEntityListener.class)
 @Getter
 @ToString
-@Setter
+// @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
 public class Memo {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long mno;
+
     @Column(length = 200, nullable = false)
     private String memoText;
 
     @Column(nullable = false)
     @CreatedDate
-    private LocalDateTime crDateTime;
+    private LocalDateTime createdDate;
+
     @Column(nullable = false)
     @LastModifiedDate
-    private LocalDateTime upDateTime;
+    private LocalDateTime updatedDate;
 
     public void changeMemoText(String memoText) {
         this.memoText = memoText;

@@ -11,14 +11,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class HomeController {
 
     @GetMapping("/")
-    public String gethome() {
+    public String getHome() {
         log.info("home 요청");
         return "home";
     }
 
     @GetMapping("/main")
-    public void getmain() {
+    public void getMain() {
         log.info("main 요청");
 
     }
+
 }

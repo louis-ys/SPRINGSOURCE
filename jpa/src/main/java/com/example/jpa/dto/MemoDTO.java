@@ -19,7 +19,7 @@ public class MemoDTO {
     private Long mno;
     private String memoText;
 
-    private LocalDateTime creatDate;
-    private LocalDateTime updateDate;
+    private LocalDateTime createdDate;
+    private LocalDateTime updatedDate;
 
 }

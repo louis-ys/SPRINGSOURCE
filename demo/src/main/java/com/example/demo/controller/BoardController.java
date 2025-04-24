@@ -20,12 +20,29 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class BoardController {
 
     @GetMapping("/create")
-    public void getcreate() {
+    public void getCreate() {
         // return "board/create";
     }
 
+    @PostMapping("/create")
+    // public String postCreate(@ModelAttribute("name") String name,
+    // RedirectAttributes rttr) {
+    public void postCreate(String name, HttpSession session) {
+        log.info("name 값 가져오기 {}", name);
+        session.setAttribute("name1", name);
+
+        // 어느 페이지로 이동을 하던지 간에 name 유지시키고 싶다면?
+        // 커맨드객체, ModelAttribute(or @ModelAttribute)
+        // return "board/list";
+
+        // redirect 값 유지하고 싶다면?
+        // rttr.addAttribute("name", name);
+        // rttr.addFlashAttribute("name", name);
+        // return "redirect:/board/list";
+    }
+
     @GetMapping("/list")
-    public void getlist() {
+    public void getList() {
         // return "board/list";
     }
 
@@ -35,18 +52,8 @@ public class BoardController {
     }
 
     @GetMapping("/update")
-    public void getupdate() {
+    public void getUpdate() {
         // return "board/update";
-    }
-
-    @PostMapping("/create")
-    // public String postCreate(@ModelAttribute("name") String
-    // name,RedirectAttributes rttr ) {
-    public String postCreate(String name, HttpSession session) {
-        log.info("name 값 가져오기 {}", name);
-        session.setAttribute("name1", name);
-        // rttr.addAttribute("name",name);
-        return "redirect:/board/list";
     }
 
 }

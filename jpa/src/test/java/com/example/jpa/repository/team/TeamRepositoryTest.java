@@ -17,7 +17,7 @@ public interface TeamRepositoryTest extends JpaRepository<Team, Long> {
         private TeamRepository teamRepository;
 
         @Autowired
-        private TeammemberRepository teammemberRepository;
+        private TeamMemberRepository teammemberRepository;
 
         @Test
         public void insertTest() {
@@ -27,13 +27,12 @@ public interface TeamRepositoryTest extends JpaRepository<Team, Long> {
 
         }
 
-        // @Test
-        // public void insertTest2() {
-        // Team team = teamRepository.findAllById(2L).get();
+        @Test
+        public void insertTest2() {
+            Team team = teamRepository.findById(2L).get();
 
-        // teammemberRepository.save(Teammember.builder().userName("user1").team(team).build());
+            teammemberRepository.save(TeamMember.builder().userName("user1").team(team).build());
 
-        // }
-
+        }
     }
 }

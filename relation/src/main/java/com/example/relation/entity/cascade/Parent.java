@@ -24,13 +24,14 @@ import lombok.ToString;
 @Getter
 @Entity
 public class Parent {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
 
     @Builder.Default
     @OneToMany(mappedBy = "parent", cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, orphanRemoval = true)
     private List<Child> childs = new ArrayList<>();
-
 }

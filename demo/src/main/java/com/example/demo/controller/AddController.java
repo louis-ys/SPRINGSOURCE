@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 @Controller
 public class AddController {
 
+    // http://localhost:8080/calc => calc.html
     @GetMapping("/calc")
     public void getCalc() {
         log.info("calc 페이지 요청");
@@ -23,38 +24,27 @@ public class AddController {
     @PostMapping("/calc")
     public String postCalc(CalcDTO calcDTO) {
         log.info("calc 연산 요청 {}", calcDTO);
-
         int result = 0;
-
         switch (calcDTO.getOp()) {
             case "+":
                 result = calcDTO.getNum1() + calcDTO.getNum2();
                 break;
-
             case "-":
                 result = calcDTO.getNum1() - calcDTO.getNum2();
-
                 break;
-
             case "*":
                 result = calcDTO.getNum1() * calcDTO.getNum2();
-
                 break;
-
             case "/":
                 result = calcDTO.getNum1() / calcDTO.getNum2();
-
                 break;
         }
-
         log.info("연산결과 {} {} {} = {}", calcDTO.getNum1(), calcDTO.getOp(), calcDTO.getNum2(), result);
         calcDTO.setResult(result);
+        // template 찾기
+        // http://localhost:8080/calc + void => /templates/calc.html
         return "result";
+        // http://localhost:8080/calc + String => /templates/result.html
     }
 
-    @GetMapping("/dip")
-    public void getdipe() {
-        log.info("dip");
-
-    }
 }

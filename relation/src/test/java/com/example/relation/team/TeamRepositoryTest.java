@@ -8,8 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.relation.entity.team.Team;
 import com.example.relation.entity.team.TeamMember;
+import com.example.relation.repository.team.TeamMemberRepository;
 import com.example.relation.repository.team.TeamRepository;
-import com.example.relation.repository.team.TeammemberRepository;
+import com.example.relation.repository.team.TeamMemberRepository;
 
 @SpringBootTest
 public class TeamRepositoryTest {
@@ -18,7 +19,7 @@ public class TeamRepositoryTest {
     private TeamRepository teamRepository;
 
     @Autowired
-    private TeammemberRepository teammemberRepository;
+    private TeamMemberRepository teammemberRepository;
 
     @Test
     public void insertTest() {

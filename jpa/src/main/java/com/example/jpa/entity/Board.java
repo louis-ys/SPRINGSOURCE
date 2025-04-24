@@ -20,28 +20,29 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Getter
-@EntityListeners(value = AuditingEntityListener.class)
-@ToString
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
+@ToString
+@EntityListeners(value = AuditingEntityListener.class)
 @Entity
 public class Board {
 
     @Id
     @SequenceGenerator(name = "board_seq_gen", sequenceName = "board_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "board_seq_gen")
-    @Column(length = 8)
-    private long bno;
+    private Long bno;
 
-    @Column(length = 100, nullable = false)
+    @Column(nullable = false, length = 100)
     private String title;
-    @Column(length = 2000, nullable = false)
+
+    @Column(nullable = false, length = 2000)
     private String content;
-    @Column(length = 50, nullable = false)
+
+    @Column(nullable = false, length = 50)
     private String writer;
+
     @CreatedDate
     private LocalDateTime regdate;
-
 }

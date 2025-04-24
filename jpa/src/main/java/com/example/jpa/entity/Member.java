@@ -20,19 +20,24 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@EntityListeners(value = AuditingEntityListener.class)
+// 번호,user아이디,이름,나이,역할,가입일자,자기소개
+
+// 번호-자동증가, 
+// user아이디-unique
+// 역할- ADMIN, USER
 @Getter
 @ToString
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@EntityListeners(value = AuditingEntityListener.class)
 @Entity
 public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long no;
+    private Long no;
 
     @Column(unique = true)
     private String userid;
@@ -44,11 +49,11 @@ public class Member {
 
     @CreatedDate
     private LocalDateTime regDate;
+
     @Column(length = 2000)
-    private String deScriptuon;
+    private String description;
 
     public enum RoleType {
         ADMIN, USER
     }
-
 }

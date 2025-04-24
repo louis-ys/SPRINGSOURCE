@@ -2,19 +2,22 @@
 # Created by https://www.toptal.com/developers/gitignore/api/windows,visualstudiocode,java,maven
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,visualstudiocode,java,maven
 
-### Java ###
-# Compiled class file
-*.class
-
-# Log file
-*.log
-
+### 추가
 */.gitignore
 */.gitattributes
 */mvnw
 */mvnw.cmd
 */.mvn/wrapper/maven-wrapper.properties
 
+
+
+
+### Java ###
+# Compiled class file
+*.class
+
+# Log file
+*.log
 
 # BlueJ files
 *.ctxt

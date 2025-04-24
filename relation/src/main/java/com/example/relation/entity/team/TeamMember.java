@@ -14,6 +14,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+// 회원은 단 하나의 팀에 소속된다.
+
 @ToString(exclude = "team")
 @Getter
 @Setter
@@ -22,7 +24,7 @@ import lombok.ToString;
 @Builder
 @Entity
 public class TeamMember {
-
+    // id, name(회원명)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
@@ -31,7 +33,7 @@ public class TeamMember {
     private String userName;
 
     // 외래키 필드명 지정
-    // @JoinColumn(name = "team_id") 안쓰면 미사용시 table명_pk명
+    // @JoinColumn 을 미사용시 table명_pk명
     @JoinColumn(name = "team_id")
     @ManyToOne
     private Team team;
