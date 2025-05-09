@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.todo.dto.ToDoDTO;
 import com.example.todo.service.TodoService;
 
-import jakarta.persistence.Id;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
@@ -33,19 +32,22 @@ public class TodoController {
     }
 
     @PostMapping("/create")
-    public String poscreate(ToDoDTO dto, RedirectAttributes rttr) {
+    public String postCreate(ToDoDTO dto, RedirectAttributes rttr) {
         log.info("todo 입력 {}", dto);
 
         Long id = todoService.create(dto);
+
+        // read 로 이동
         rttr.addAttribute("id", id);
         return "redirect:/todo/read";
     }
 
     @GetMapping("/remove")
-    public String getremove(Long id) {
-        log.info("삭제 {} ", id);
+    public String getRemove(Long id) {
+        log.info("삭제 {}", id);
 
         todoService.remove(id);
+
         return "redirect:/todo/list";
     }
 
@@ -54,6 +56,7 @@ public class TodoController {
         log.info("전체 todo 가져오기 {}", completed);
         List<ToDoDTO> todos = todoService.list(completed);
         model.addAttribute("todos", todos);
+        // 어떤(완료,미완료) 목록을 보여주는가?
         model.addAttribute("completed", completed);
     }
 
@@ -63,12 +66,12 @@ public class TodoController {
 
         ToDoDTO dto = todoService.read(id);
         model.addAttribute("dto", dto);
-
     }
 
     @PostMapping("/modify")
     public String postCompleted(ToDoDTO dto, RedirectAttributes rttr) {
         log.info("수정 {}", dto);
+
         Long id = todoService.changeCompleted(dto);
 
         rttr.addAttribute("id", id);

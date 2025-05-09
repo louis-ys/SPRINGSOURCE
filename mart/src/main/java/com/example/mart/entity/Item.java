@@ -19,7 +19,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 @Getter
-@ToString(exclude = "orderItems")
+@ToString(exclude = { "orderItems" })
 @Entity
 public class Item {
     // 상품(상품번호(pk),상품명,가격,수량)이 있다.
@@ -39,4 +39,5 @@ public class Item {
     @Builder.Default
     @OneToMany(mappedBy = "item")
     private List<OrderItem> orderItems = new ArrayList<>();
+
 }

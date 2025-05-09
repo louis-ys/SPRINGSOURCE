@@ -26,7 +26,6 @@ public class TodoService {
 
         ToDo todo = modelMapper.map(dto, ToDo.class);
         return todoRepository.save(todo).getId();
-
     }
 
     public void remove(Long id) {
@@ -35,6 +34,7 @@ public class TodoService {
 
     public ToDoDTO read(Long id) {
         ToDo todo = todoRepository.findById(id).get();
+        // entity => dto 변경 후 리턴
         return modelMapper.map(todo, ToDoDTO.class);
     }
 
@@ -59,5 +59,4 @@ public class TodoService {
                 .collect(Collectors.toList());
         return todos;
     }
-
 }

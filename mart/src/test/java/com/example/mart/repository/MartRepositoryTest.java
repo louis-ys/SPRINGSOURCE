@@ -1,6 +1,8 @@
 package com.example.mart.repository;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.IntStream;
 
 import org.junit.jupiter.api.Test;
@@ -264,6 +266,96 @@ public class MartRepositoryTest {
     public void deleteTest() {
         // order 지우면서 배송정보 제거, 주문상품 제거
         orderRepository.deleteById(5L);
+    }
+
+    @Test
+    public void testCategoryItemInsert1() {
+        // 카테고리 입력
+        Category category1 = Category.builder().name("가전제품").build();
+        Category category2 = Category.builder().name("식품").build();
+        Category category3 = Category.builder().name("생활용품").build();
+
+        categoryRepository.save(category1);
+        categoryRepository.save(category2);
+        categoryRepository.save(category3);
+
+        // 아이템 입력
+        Item item1 = Item.builder().name("TV").price(2500000).stockQuantity(15).build();
+        itemRepository.save(item1);
+
+        CategoryItem categoryItem = CategoryItem.builder().category(category1).item(item1).build();
+        categoryItemRepository.save(categoryItem);
+
+        item1 = Item.builder().name("콩나물").price(1200).stockQuantity(5).build();
+        itemRepository.save(item1);
+
+        categoryItem = CategoryItem.builder().category(category2).item(item1).build();
+        categoryItemRepository.save(categoryItem);
+
+        item1 = Item.builder().name("샴푸").price(12000).stockQuantity(7).build();
+        itemRepository.save(item1);
+
+        categoryItem = CategoryItem.builder().category(category3).item(item1).build();
+        categoryItemRepository.save(categoryItem);
+    }
+
+    @Transactional
+    @Test
+    public void readCateItem() {
+        // CategoryItem => Category, CategoryItem => Item
+        CategoryItem categoryItem = categoryItemRepository.findById(1L).get();
+
+        System.out.println(categoryItem);
+        System.out.println(categoryItem.getCategory().getName());
+        System.out.println(categoryItem.getItem().getName());
+
+        Category category = categoryRepository.findById(1L).get();
+        category.getCategoryItems().forEach(item -> System.out.println(item.getItem()));
+    }
+
+    // querydsl test
+
+    @Test
+    public void membersTest() {
+        List<Member> list = orderRepository.members();
+        System.out.println(list);
+    }
+
+    @Test
+    public void itemsTest() {
+        List<Item> list = orderRepository.items();
+        System.out.println(list);
+    }
+
+    @Test
+    public void joinTest() {
+        List<Object[]> list = orderRepository.joinTest();
+        for (Object[] objects : list) {
+            // System.out.println(Arrays.toString(objects));
+            Order order = (Order) objects[0];
+            Member member = (Member) objects[1];
+            OrderItem orderItem = (OrderItem) objects[2];
+            System.out.println(order);
+            System.out.println(member);
+            System.out.println(orderItem);
+        }
+    }
+
+    @Test
+    public void subQueryTest() {
+        List<Object[]> list = orderRepository.subQueryTest();
+        for (Object[] objects : list) {
+            Order order = (Order) objects[0];
+            Member member = (Member) objects[1];
+            OrderItem orderItem = (OrderItem) objects[2];
+            Long orderCnt = (Long) objects[3];
+            Long orderSum = (Long) objects[4];
+            System.out.println(order);
+            System.out.println(member);
+            System.out.println(orderItem);
+            System.out.println(orderCnt);
+            System.out.println(orderSum);
+        }
     }
 
 }

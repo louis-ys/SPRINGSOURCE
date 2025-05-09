@@ -1,8 +1,12 @@
 package com.example.relation.repository;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.jpa.repository.Query;
 
 import com.example.relation.entity.team.Team;
 import com.example.relation.entity.team.TeamMember;
@@ -57,6 +61,22 @@ public class TeamRepositoryTest {
     }
 
     @Test
+    public void readTest3() {
+        Team team = Team.builder().id(2L).build();
+        List<TeamMember> list = teamMemberRepository.findByTeam(team);
+        System.out.println(list); // [TeamMember(id=1, userName=user1), TeamMember(id=2, userName=user2)]
+    }
+
+    @Test
+    public void findByMemberEqualTeamTest() {
+        List<Object[]> result = teamMemberRepository.findByMemberEqualTeam(2L);
+
+        for (Object[] objects : result) {
+            System.out.println(Arrays.toString(objects));
+        }
+    }
+
+    @Test
     public void updateTest() {
         // 1번 팀원의 팀 변경 : 2번팀으로 변경
         TeamMember member = teamMemberRepository.findById(1L).get();
@@ -101,6 +121,29 @@ public class TeamRepositoryTest {
         System.out.println(team);
         // 객체그래프탐색
         team.getMembers().forEach(member -> System.out.println(member));
+    }
+
+    // -----------------------
+    // 양방향
+    // 영속성 전이 : Cascade
+    // -----------------------
+
+    @Test
+    public void insertTest3() {
+        Team team = Team.builder().teamName("team3").build();
+        TeamMember member = TeamMember.builder().userName("홍길동").team(team).build();
+
+        team.getMembers().add(member);
+
+        // teamMemberRepository.save(member);
+        teamRepository.save(team);
+    }
+
+    @Test
+    public void deleteTest2() {
+        // 부모 삭제 시 자식도 같이 삭제
+        // deleteTest() 와 비교
+        teamRepository.deleteById(3L);
     }
 
 }
